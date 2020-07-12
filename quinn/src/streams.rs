@@ -61,7 +61,7 @@ where
         WriteAll { stream: self, buf }
     }
 
-    fn poll_write(&mut self, cx: &mut Context, buf: &[u8]) -> Poll<Result<usize, WriteError>> {
+    pub fn poll_write(&mut self, cx: &mut Context, buf: &[u8]) -> Poll<Result<usize, WriteError>> {
         use proto::WriteError::*;
         let mut conn = self.conn.lock().unwrap();
         if self.is_0rtt {
@@ -348,7 +348,7 @@ where
         }
     }
 
-    fn poll_read(
+    pub fn poll_read(
         &mut self,
         cx: &mut Context,
         buf: &mut [u8],
